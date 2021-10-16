@@ -1,5 +1,5 @@
 const apiRouter = require('express').Router()
-
+const db = require("./db")
 
 apiRouter.get('/', (request, response) => {
     const note = {
