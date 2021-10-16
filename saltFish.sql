@@ -22,6 +22,7 @@ use Saltfish;
 create table Address
 (
    addr_zip             int not null,
+   addr_full      text not null,
    primary key (addr_zip)
 );
 
@@ -54,6 +55,7 @@ create table Comments
 create table Items
 (
    item_id              bigint not null,
+   item_name            text not null,
    type_id              bigint,
    user_account         bigint not null,
    item_info            text,
@@ -126,10 +128,11 @@ create table Types
 create table Users
 (
    user_account         bigint not null,
+   user_name            char(26) not null,
    addr_zip             int,
+   user_detail_addr     text,
    passwd               char(26) not null,
    balance              float(12,2),
-   zip                  int,
    primary key (user_account)
 );
 

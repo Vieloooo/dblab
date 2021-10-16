@@ -1,0 +1,17 @@
+### successful login 
+POST http://localhost:3005/log/login HTTP/1.1
+content-type: application/json
+
+{
+    "account": 0,
+    "passwd":"123"
+}
+
+### fail login 
+POST http://localhost:3005/log/login HTTP/1.1
+content-type: application/json
+
+{
+    "account": 34234,
+    "passwd":"123"
+}

@@ -4,6 +4,8 @@ const app = express()
 const cors = require('cors')
 const logger = require('./utils/logger')
 const apiRouter = require('./api')
+const { request } = require('express')
+const logRouter = require('./login')
 logger.info('connecting to', config.PORT)
 
 
@@ -13,5 +15,5 @@ app.use(express.json())
 
 
 app.use('/api/', apiRouter)
-
+app.use('/log/', logRouter)
 module.exports = app

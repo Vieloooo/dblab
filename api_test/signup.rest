@@ -1,0 +1,10 @@
+POST http://localhost:3005/log/signup HTTP/1.1
+content-type: application/json
+
+{
+    "passwd":"123",
+    "name":"vielo",
+    "zipcode":"518000",
+    "addr_detail":"liyuan 81203B",
+    "balance":1000
+}
