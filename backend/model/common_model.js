@@ -1,4 +1,4 @@
-const loginRouter = require('express').Router()
+
 const db = require("../db")
 
 const sql = {}
@@ -36,17 +36,29 @@ sql.fetchUserById = (id, result) => {
         result(null, res[0])
     })
 }
-sql.fetchItemsNeedShippedById = (id, result) => {
-    db.query(`select * from Items where user_account = ${id}`, (err, res) => {
+sql.fetchItemById = (id, result) => {
+    db.query(`select * from Items where item_id = ${id} `, (err, res) => {
         if (err) {
             console.log(err)
             result(err, null)
             return
         }
-        console.log("fetch ", id, "'s items")
+        console.log("fetch item", id)
+        result(null, res[0])
+    })
+}
+sql.fetchItemByUser = (id, result) => {
+    db.query(`select * from Items where user_account = ${id} `, (err, res) => {
+        if (err) {
+            console.log(err)
+            result(err, null)
+            return
+        }
+        console.log("fetch user's items", id)
         result(null, res)
     })
 }
+
 sql.getMaxTxId = (result) => {
     db.query(`select Count(*) as num from Transactions`, (err, res) => {
         if (err) {

@@ -62,7 +62,6 @@ create table Items
    user_account         bigint not null,
    item_info            text,
    item_price           int not null,
-   store                int,
    primary key (item_id)
 );
 
@@ -143,9 +142,9 @@ create table Users
 /*==============================================================*/
 create VIEW  Profits
  as
-select Transactions.user_account, sum(Items.item_price) as profit
+select Transactions.user_account as id, sum(Items.item_price)  as profit
 from Transactions, Items 
-where Transactions.item_id = Items.item_id 
+where Transactions.item_id = Items.item_id and Transactions.tx_state = 2
 group by (Transactions.user_account);
 
 alter table Charts add constraint FK_Charts foreign key (user_account)

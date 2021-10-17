@@ -1,5 +1,4 @@
-const loginRouter = require('express').Router()
-const { response } = require('express')
+
 const db = require("../db")
 const sql = require('./common_model')
 
@@ -10,9 +9,9 @@ user.updateInfo = (userInfo, result) => {
         (err, data) => {
             console.log(err, data)
             if (err) {
-                result(err, 1)
+                result(err)
             } else {
-                result(null, 0)
+                result(null)
             }
         })
 }
@@ -49,7 +48,7 @@ user.getMyTxs = (id, result) => {
             }
         })
 }
-user.getMyTxsNeedShip = (id, result) => {
+user.getTxsNeedShip = (id, result) => {
     db.query(`select * from Transactions where user_account = ${id} and tx_state = 0`,
         (err, data) => {
             console.log(err, data)
@@ -109,9 +108,20 @@ user.addTochart = (userid, itemid, result) => {
         (err, data) => {
             console.log(err, data)
             if (err) {
-                result(err, 0)
+                result(err)
             } else {
-                result(null, 1)
+                result(null)
+            }
+        })
+}
+user.DelOnchart = (userid, itemid, result) => {
+    db.query(`delect from Charts where user_account = ${userid} and item_id = ${itemid}`,
+        (err, data) => {
+            console.log(err, data)
+            if (err) {
+                result(err)
+            } else {
+                result(null)
             }
         })
 }
@@ -132,30 +142,33 @@ user.getMyChart = (id, result) => {
 //return new tx id 
 user.NewTx = (input, result) => {
     /*input{
-        userid,balance, item_id , item price , provider id 
+        userid,balance, item_id , item_price , provider id 
     }
     */
-
     //new tx
     sql.getMaxTxId((err, res) => {
         if (err) {
             result(err, null)
             return
         }
-        db.query(`insert into Tx values ( ${res} , ${input.item_id} ,${input.user_id} , ${input.provider_id} , NOW(), ${input.gas}  , 0)`,
+        db.query(`insert into Tx values ( ${res} , ${input.item_id} ,${input.user_account} , ${input.provider_id} , NOW(), ${input.gas}  , 0)`,
             (err, data) => {
                 if (err) {
                     result(err, null)
-                    return
+                } else {
+                    user.updateBalance((input.balance - item_price), input.user_account, (err) => {
+                        if (err) {
+                            result(err, null)
+                        }
+                        result(null, data[0])
+                    })
                 }
-                result(null, res)
-                //update user balance and item store --
+
 
             })
     })
-
-
 }
+
 user.delMyitem = (id, result) => {
     db.query(`delete from Items where item_id = ${id}`,
         (err, data) => {
@@ -164,6 +177,15 @@ user.delMyitem = (id, result) => {
                 return
             }
             result(null)
-        }
-    )
+        })
+}
+user.sendMsg = (id, msg, to, result) => {
+    db.query(`insert into Msgs values (null , ${id}, "${msg}", ${to} )`,
+        (err, data) => {
+            if (err) {
+                result(err)
+                return
+            }
+            result(null)
+        })
 }

@@ -24,4 +24,22 @@ apiRouter.get('/users', (res, req) => {
         req.json(data)
     })
 })
+apiRouter.get('/user', (res, req) => {
+    sql.fetchUserById(res.body.user_account, (err, data) => {
+        if (err) throw err
+        req.json(data)
+    })
+})
+apiRouter.get('/item', (res, req) => {
+    sql.fetchItemById(res.body.item_id, (err, data) => {
+        if (err) throw err
+        req.json(data)
+    })
+})
+apiRouter.get('/UserItems', (res, req) => {
+    sql.fetchItemByUser(res.body.user_account, (err, data) => {
+        if (err) throw err
+        req.json(data)
+    })
+})
 module.exports = apiRouter
