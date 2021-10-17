@@ -1,2 +1,6 @@
+GET http://localhost:3005/api/users HTTP/1.1
+content-type: application/json
+
+### 
 GET http://localhost:3005/api/items HTTP/1.1
 content-type: application/json

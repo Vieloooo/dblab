@@ -3,9 +3,9 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const logger = require('./utils/logger')
-const apiRouter = require('./api')
+const apiRouter = require('./router/api')
 const { request } = require('express')
-const logRouter = require('./login')
+const logRouter = require('./router/login')
 logger.info('connecting to', config.PORT)
 
 

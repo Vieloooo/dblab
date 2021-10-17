@@ -3,7 +3,9 @@
 /* Created on:     2021/10/11 14:29:21                          */
 /*==============================================================*/
 
-
+/*
+tx state 0 need ship , 1 in shipping, 2 confirmed 
+*/
 
 #drop index if exists msg_url if exists on Msgs ;
 

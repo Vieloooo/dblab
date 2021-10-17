@@ -1,6 +1,6 @@
 const loginRouter = require('express').Router()
-const db = require("./db")
-const sql = require("./sql")
+const db = require("../db")
+const sql = require("../model/common_model")
 loginRouter.get('/', (request, response) => {
     const note = {
         msg: "login api work"
@@ -50,7 +50,7 @@ loginRouter.post('/signup', (request, response) => {
         newUserInfo.user_account = res[0].num
         //insert new user to db
         console.log(newUserInfo)
-        db.query(`insert into Users values ( ${newUserInfo.user_account},"${newUserInfo.name}",${newUserInfo.zipcode},"${newUserInfo.addr_detail}", "${newUserInfo.passwd}", ${newUserInfo.balance} )`,
+        db.query(`insert into Users values ( ${newUserInfo.user_account},"${newUserInfo.user_name}",${newUserInfo.addr_zip},"${newUserInfo.user_detail_addr}", "${newUserInfo.passwd}", ${newUserInfo.balance} )`,
             (err, res) => {
                 if (err) throw err
                 console.log("new user", res)
