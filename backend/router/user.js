@@ -41,7 +41,7 @@ userRouter.get('/getMyProfit', (req, res) => {
 
 //my tx 
 userRouter.get('/getMyTxs', (req, res) => {
-    user.getMyTxs(req.body.user_id, (err, data) => {
+    user.getMyTxs(req.body.user_account, (err, data) => {
         if (err) {
             res.json({
                 state: 0,
@@ -157,6 +157,7 @@ userRouter.get("/getAllMsg", (req, res) => {
 
 
 userRouter.post("/ConfirmTx", (req, res) => {
+    console.log(req.body)
     user.ConfirmTx(req.body.tx_id, (err, data) => {
         if (err) {
             res.json({
@@ -169,6 +170,7 @@ userRouter.post("/ConfirmTx", (req, res) => {
         }
     })
 })
+
 //Sell 
 userRouter.post("/ShippingTx", (req, res) => {
     user.ShippingTx(req.body.tx_id, (err, data) => {
@@ -184,8 +186,9 @@ userRouter.post("/ShippingTx", (req, res) => {
     })
 })
 userRouter.get("/mySell", (req, res) => {
-    db.query(`select * from Transactions , Items where Transcations.item_id = Items.item_id and Items.user_account = ${req.body.user_account}`, (err, data) => {
+    db.query(`select * from Transactions , Items where Transactions.item_id = Items.item_id and Items.user_account = ${req.body.user_account}`, (err, data) => {
         if (err) {
+            console.log(err)
             res.json({
                 state: 0,
                 items: data

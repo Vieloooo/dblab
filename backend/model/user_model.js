@@ -38,7 +38,7 @@ user.getMyprofit = (id, result) => {
         })
 }
 user.getMyTxs = (id, result) => {
-    db.query(`select * from Transactions where user_account = ${id}`,
+    db.query(`select * from Transactions where user_account = ${id} order by tx_stamp desc`,
         (err, data) => {
             console.log(err, data)
             if (err) {
@@ -92,7 +92,7 @@ user.ShippingTx = (tx_id, result) => {
             }
         })
 }
-user.ComfirmTx = (tx_id, result) => {
+user.ConfirmTx = (tx_id, result) => {
     db.query(`Update Transactions Set tx_state = 2 where tx_id = ${tx_id}`,
         (err, data) => {
             console.log(err, data)
