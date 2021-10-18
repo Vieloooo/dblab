@@ -6,13 +6,12 @@ const { use } = require('./api')
 
 //me
 userRouter.post('/updateInfo', (req, res) => {
-
-    user.updateInfo(req.body.newinfo, err => {
+    console.log(req.body)
+    user.updateInfo(req.body, err => {
         if (err) {
             res.json({
                 state: 0
             })
-            return
         }
         res.json({
             state: 1
@@ -21,7 +20,7 @@ userRouter.post('/updateInfo', (req, res) => {
 })
 
 userRouter.get('/getMyProfit', (req, res) => {
-    user.getMyprofit(req.body.user_id, (err, data) => {
+    user.getMyprofit(req.body.user_account, (err, data) => {
         if (err) {
             res.json({
                 state: 0,
@@ -101,6 +100,7 @@ userRouter.post("/DelOnChart", (req, res) => {
 })
 //item 
 userRouter.post("/buyItem", (req, res) => {
+    console.log(req.body)
     if (req.body.balance <= req.body.item_price) {
         res.json({
             state: 0,
@@ -126,12 +126,30 @@ userRouter.post("/buyItem", (req, res) => {
 userRouter.post("/sendMsg", (req, res) => {
     user.sendMsg(req.body.user_account, req.body.msg_content, req.body.send_to, (err) => {
         if (err) {
+            console.log(err)
             res.json({
                 state: 0
             })
         } else {
             res.json({
                 state: 1
+            })
+        }
+    })
+})
+
+userRouter.get("/getAllMsg", (req, res) => {
+    user.getAllMsg(req.body.user_account, req.body.send_to, (err, data) => {
+        if (err) {
+            console.log(err)
+            res.json({
+                state: 0,
+                msgs: data
+            })
+        } else {
+            res.json({
+                state: 1,
+                msgs: data
             })
         }
     })

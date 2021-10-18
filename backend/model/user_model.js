@@ -27,7 +27,7 @@ user.updateBalance = (id, newBalance, result) => {
         })
 }
 user.getMyprofit = (id, result) => {
-    db.query(`select * from Profits where user_account = ${id}`,
+    db.query(`select * from Profits where id = ${id}`,
         (err, data) => {
             console.log(err, data)
             if (err) {
@@ -114,8 +114,8 @@ user.addTochart = (userid, itemid, result) => {
             }
         })
 }
-user.DelOnchart = (userid, itemid, result) => {
-    db.query(`delect from Charts where user_account = ${userid} and item_id = ${itemid}`,
+user.DelOnChart = (userid, itemid, result) => {
+    db.query(`delete from Charts where user_account = ${userid} and item_id = ${itemid}`,
         (err, data) => {
             console.log(err, data)
             if (err) {
@@ -151,12 +151,13 @@ user.NewTx = (input, result) => {
             result(err, null)
             return
         }
-        db.query(`insert into Tx values ( ${res} , ${input.item_id} ,${input.user_account} , ${input.provider_id} , NOW(), ${input.gas}  , 0)`,
+        db.query(`insert into Transactions values ( ${res} , ${input.item_id} ,${input.user_account} , ${input.provider_id} , NOW(), ${input.gas}  , 0)`,
             (err, data) => {
                 if (err) {
+                    console.log(err)
                     result(err, null)
                 } else {
-                    user.updateBalance((input.balance - item_price), input.user_account, (err) => {
+                    user.updateBalance(input.user_account, (input.balance - input.item_price - input.gas), (err) => {
                         if (err) {
                             result(err, null)
                         }
@@ -179,13 +180,31 @@ user.delMyitem = (id, result) => {
             result(null)
         })
 }
-user.sendMsg = (id, msg, to, result) => {
-    db.query(`insert into Msgs values (null , ${id}, "${msg}", ${to} )`,
+
+user.getAllMsg = (from, to, result) => {
+    db.query(`select * from Msgs where (user_account = ${from} and send_to = ${to}) or (user_account = ${to} and send_to = ${from} )order by Msg_stamp desc`,
         (err, data) => {
             if (err) {
-                result(err)
+                result(err, null)
                 return
             }
-            result(null)
+            result(null, data)
         })
 }
+
+user.sendMsg = (id, msg, to, result) => {
+    db.query("select count(*) as num from Msgs", (err1, data1) => {
+        if (err1) throw err1
+        db.query(`insert into Msgs values ( ${data1[0].num}, ${id}, "${msg}", ${to} , NOW())`,
+            (err, data) => {
+                if (err) {
+                    result(err)
+                    return
+                }
+                result(null)
+            })
+    })
+
+}
+
+module.exports = user

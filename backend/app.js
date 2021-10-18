@@ -16,5 +16,5 @@ app.use(express.json())
 
 app.use('/api/', apiRouter)
 app.use('/log/', logRouter)
-app.use('/user', userRouter)
+app.use('/user/', userRouter)
 module.exports = app

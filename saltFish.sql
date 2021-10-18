@@ -74,13 +74,14 @@ create table Msgs
    user_account         bigint not null,
    msg_content          text not null,
    send_to                   bigint not null,
+   Msg_stamp             timestamp not null,
    primary key (msg_id)
 );
 
 /*==============================================================*/
 /* Index: msg_url                                               */
 /*==============================================================*/
-create unique index msg_url on Msgs
+create  index msg_url on Msgs
 (
    send_to
 );

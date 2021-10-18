@@ -43,8 +43,8 @@ sql.fetchItemById = (id, result) => {
             result(err, null)
             return
         }
-        console.log("fetch item", id)
-        result(null, res[0])
+        console.log("fetch item", id, res)
+        result(null, res)
     })
 }
 sql.fetchItemByUser = (id, result) => {

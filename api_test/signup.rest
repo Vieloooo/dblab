@@ -9,3 +9,16 @@ content-type: application/json
     "balance": 1000
     
 }
+
+### 
+POST http://localhost:3005/log/signup HTTP/1.1
+content-type: application/json
+
+{
+    "user_name": "firstUser",
+    "addr_zip": 518000,
+    "user_detail_addr": "liyuan 81203A",
+    "passwd": "123",
+    "balance": 1000
+    
+}

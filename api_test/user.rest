@@ -1,9 +1,117 @@
-POST http://localhost:3005/user/update HTTP/1.1
+
+POST http://localhost:3005/user/updateInfo HTTP/1.1
 content-type: application/json
+
 {
+    "user_account":1,
     "passwd":"123",
-    "name":"vielo",
-    "zipcode":"518000",
-    "addr_detail":"liyuan 81203B",
+    "user_name":"sdfsdf",
+    "addr_zip":"518000",
+    "user_detail_addr":"liyuan 81203B",
     "balance":1000
+}
+
+
+###
+GET http://localhost:3005/user/getMyProfit HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":1
+    
+}
+//view items 
+### 
+GET http://localhost:3005/api/items HTTP/1.1
+content-type: application/json
+
+//for each item 
+
+
+###
+POST http://localhost:3005/user/buyItem HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":1,
+    "balance": 1000,
+    "item_id": 0,
+    "item_price":500,
+    "provider_id":0,
+    "gas":10
+}
+
+###get users
+GET http://localhost:3005/api/users HTTP/1.1
+content-type: application/json
+
+### see poster 
+GET http://localhost:3005/api/user HTTP/1.1
+content-type: application/json
+
+{
+    "user_account": 0
+}
+
+### get user's all items 
+GET http://localhost:3005/api/userItems HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":0 
+}
+### get msg about user 
+GET http://localhost:3005/user/getAllMsg HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":0 ,
+    "send_to": 1
+}
+
+### sent msg 
+POST  http://localhost:3005/user/sendMsg HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":0 ,
+    "msg_content":"a simple msg 0 to 1",
+    "send_to": 1
+}
+
+###
+
+POST  http://localhost:3005/user/sendMsg HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":1,
+    "msg_content":"a simple msg 1 to 0",
+    "send_to": 0
+}
+
+// charts 
+### my Chart
+GET  http://localhost:3005/user/myChart HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":1
+}
+###
+
+POST http://localhost:3005/user/addToChart HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":1,
+    "item_id": 0
+}
+###
+POST  http://localhost:3005/user/DelOnChart HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":1,
+    "item_id":0
 }

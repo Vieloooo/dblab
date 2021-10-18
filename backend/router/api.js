@@ -12,34 +12,36 @@ apiRouter.get('/', (request, response) => {
     response.json(note)
 
 })
-apiRouter.get('/items', (res, req) => {
+apiRouter.get('/items', (req, res) => {
     sql.fetchAllitem((err, data) => {
         if (err) throw err
-        req.json(data)
+        res.json(data)
     })
 })
-apiRouter.get('/users', (res, req) => {
+apiRouter.get('/users', (req, res) => {
     sql.fetchAllUsers((err, data) => {
         if (err) throw err
-        req.json(data)
+        res.json(data)
     })
 })
-apiRouter.get('/user', (res, req) => {
-    sql.fetchUserById(res.body.user_account, (err, data) => {
+apiRouter.get('/user', (req, res) => {
+    sql.fetchUserById(req.body.user_account, (err, data) => {
         if (err) throw err
-        req.json(data)
+
+        res.json(data)
     })
 })
-apiRouter.get('/item', (res, req) => {
-    sql.fetchItemById(res.body.item_id, (err, data) => {
+apiRouter.get('/item', (req, res) => {
+    console.log(req.body.item_id)
+    sql.fetchItemById(req.body.item_id, (err, data) => {
         if (err) throw err
-        req.json(data)
+        res.json(data)
     })
 })
-apiRouter.get('/UserItems', (res, req) => {
-    sql.fetchItemByUser(res.body.user_account, (err, data) => {
+apiRouter.get('/userItems', (req, res) => {
+    sql.fetchItemByUser(req.body.user_account, (err, data) => {
         if (err) throw err
-        req.json(data)
+        res.json(data)
     })
 })
 module.exports = apiRouter
