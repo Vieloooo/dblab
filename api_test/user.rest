@@ -115,3 +115,37 @@ content-type: application/json
     "user_account":1,
     "item_id":0
 }
+
+### mytxs 
+
+GET  http://localhost:3005/user/getMyTxs HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":1
+}
+
+### confirm my tx 
+POST  http://localhost:3005/user/ConfirmTx HTTP/1.1
+content-type: application/json
+
+{
+    "tx_id":0
+}
+
+
+###SElling 
+GET  http://localhost:3005/user/mySell HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":0
+}
+
+###
+POST  http://localhost:3005/user/ShippingTx HTTP/1.1
+content-type: application/json
+
+{
+    "tx_id":0
+}
