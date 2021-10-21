@@ -3,7 +3,7 @@ POST http://localhost:3005/log/login HTTP/1.1
 content-type: application/json
 
 {
-    "account": 0,
+    "account": 1,
     "passwd":"123"
 }
 

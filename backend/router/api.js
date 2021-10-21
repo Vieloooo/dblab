@@ -15,6 +15,7 @@ apiRouter.get('/', (request, response) => {
 apiRouter.get('/items', (req, res) => {
     sql.fetchAllitem((err, data) => {
         if (err) throw err
+        console.log(data)
         res.json(data)
     })
 })
@@ -24,21 +25,23 @@ apiRouter.get('/users', (req, res) => {
         res.json(data)
     })
 })
-apiRouter.get('/user', (req, res) => {
+apiRouter.post('/user', (req, res) => {
+    console.log(req.body.user_account)
+
     sql.fetchUserById(req.body.user_account, (err, data) => {
         if (err) throw err
 
         res.json(data)
     })
 })
-apiRouter.get('/item', (req, res) => {
+apiRouter.post('/item', (req, res) => {
     console.log(req.body.item_id)
     sql.fetchItemById(req.body.item_id, (err, data) => {
         if (err) throw err
         res.json(data)
     })
 })
-apiRouter.get('/userItems', (req, res) => {
+apiRouter.post('/userItems', (req, res) => {
     sql.fetchItemByUser(req.body.user_account, (err, data) => {
         if (err) throw err
         res.json(data)

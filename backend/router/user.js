@@ -3,6 +3,7 @@ const user = require("../model/user_model")
 const common = require("../model/common_model")
 const db = require("../db")
 const { use } = require('./api')
+const con = require('../db')
 
 //me
 userRouter.post('/updateInfo', (req, res) => {
@@ -19,7 +20,7 @@ userRouter.post('/updateInfo', (req, res) => {
     })
 })
 
-userRouter.get('/getMyProfit', (req, res) => {
+userRouter.post('/getMyProfit', (req, res) => {
     user.getMyprofit(req.body.user_account, (err, data) => {
         if (err) {
             res.json({
@@ -40,7 +41,7 @@ userRouter.get('/getMyProfit', (req, res) => {
 //item detail 
 
 //my tx 
-userRouter.get('/getMyTxs', (req, res) => {
+userRouter.post('/getMyTxs', (req, res) => {
     user.getMyTxs(req.body.user_account, (err, data) => {
         if (err) {
             res.json({
@@ -57,7 +58,7 @@ userRouter.get('/getMyTxs', (req, res) => {
 })
 
 //charts 
-userRouter.get("/myChart", (req, res) => {
+userRouter.post("/myChart", (req, res) => {
     user.getMyChart(req.body.user_account, (err, data) => {
         if (err) {
             res.json({
@@ -138,7 +139,7 @@ userRouter.post("/sendMsg", (req, res) => {
     })
 })
 
-userRouter.get("/getAllMsg", (req, res) => {
+userRouter.post("/getAllMsg", (req, res) => {
     user.getAllMsg(req.body.user_account, req.body.send_to, (err, data) => {
         if (err) {
             console.log(err)
@@ -185,7 +186,7 @@ userRouter.post("/ShippingTx", (req, res) => {
         }
     })
 })
-userRouter.get("/mySell", (req, res) => {
+userRouter.post("/mySell", (req, res) => {
     db.query(`select * from Transactions , Items where Transactions.item_id = Items.item_id and Items.user_account = ${req.body.user_account}`, (err, data) => {
         if (err) {
             console.log(err)
@@ -199,6 +200,26 @@ userRouter.get("/mySell", (req, res) => {
                 items: data
             })
         }
+    })
+})
+userRouter.post("/postItem", (req, res) => {
+    const item = req.body
+    db.query("select count(*) as num from Items", (err1, data1) => {
+        if (err1) throw err1
+        db.query(`insert into Items values ( ${data1[0].num}, "${item.item_name}", ${item.type_id}, ${item.user_account} ,"${item.item_info} " , ${item.item_price})`,
+            (err, data) => {
+                if (err) {
+                    console.log(err)
+                    res.json({
+                        state: 0
+                    })
+                } else {
+                    res.json({
+                        state: 1
+                    })
+                }
+
+            })
     })
 })
 module.exports = userRouter
