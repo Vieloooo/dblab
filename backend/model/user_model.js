@@ -38,7 +38,7 @@ user.getMyprofit = (id, result) => {
         })
 }
 user.getMyTxs = (id, result) => {
-    db.query(`select * from Transactions where user_account = ${id} order by tx_stamp desc`,
+    db.query(`select * from Transactions , Items where Transactions.user_account = ${id} and Items.item_id = Transactions.item_id order by tx_stamp desc`,
         (err, data) => {
             console.log(err, data)
             if (err) {
@@ -181,8 +181,18 @@ user.delMyitem = (id, result) => {
         })
 }
 
-user.getAllMsg = (from, to, result) => {
-    db.query(`select * from Msgs where (user_account = ${from} and send_to = ${to}) or (user_account = ${to} and send_to = ${from} )order by Msg_stamp desc`,
+user.getAllMsg = (from, result) => {
+    db.query(`select * from Msgs where user_account = ${from}  or send_to = ${from} order by Msg_stamp desc`,
+        (err, data) => {
+            if (err) {
+                result(err, null)
+                return
+            }
+            result(null, data)
+        })
+}
+user.msgFromMe = (from, result) => {
+    db.query(`select * from Msgs where user_account = ${from} order by Msg_stamp desc`,
         (err, data) => {
             if (err) {
                 result(err, null)

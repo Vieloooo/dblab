@@ -140,7 +140,23 @@ userRouter.post("/sendMsg", (req, res) => {
 })
 
 userRouter.post("/getAllMsg", (req, res) => {
-    user.getAllMsg(req.body.user_account, req.body.send_to, (err, data) => {
+    user.getAllMsg(req.body.user_account, (err, data) => {
+        if (err) {
+            console.log(err)
+            res.json({
+                state: 0,
+                msgs: data
+            })
+        } else {
+            res.json({
+                state: 1,
+                msgs: data
+            })
+        }
+    })
+})
+userRouter.post("/getMsgFromMe", (req, res) => {
+    user.msgFromMe(req.body.user_account, (err, data) => {
         if (err) {
             console.log(err)
             res.json({
@@ -187,7 +203,7 @@ userRouter.post("/ShippingTx", (req, res) => {
     })
 })
 userRouter.post("/mySell", (req, res) => {
-    db.query(`select * from Transactions , Items where Transactions.item_id = Items.item_id and Items.user_account = ${req.body.user_account}`, (err, data) => {
+    db.query(`select * from Transactions , Items where Transactions.item_id = Items.item_id and Items.user_account = ${req.body.user_account} order by Transactions.tx_state `, (err, data) => {
         if (err) {
             console.log(err)
             res.json({

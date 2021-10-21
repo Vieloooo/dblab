@@ -77,11 +77,11 @@ const Signup = ({ setUser }) => {
         )
     } else if (state === 2) {
         return (
-            <h2>login success</h2>
+            <h2>Welcome to Salty Fish</h2>
         )
     } else {
         return (
-            <h2>login fail</h2>
+            <h2>sorry, some error occured...</h2>
         )
     }
 

@@ -4,7 +4,7 @@ content-type: application/json
 
 {
     "user_account":0
-}cd 
+}
 ###
 POST http://localhost:3005/user/updateInfo HTTP/1.1
 content-type: application/json
@@ -42,7 +42,7 @@ content-type: application/json
 {
     "user_account":1,
     "balance": 1000,
-    "item_id": 0,
+    "item_id": 3,
     "item_price":500,
     "provider_id":0,
     "gas":10
@@ -65,15 +65,24 @@ POST http://localhost:3005/api/userItems HTTP/1.1
 content-type: application/json
 
 {
-    "user_account":0 
+    "user_account":1
 }
+
+
 ### get msg about user 
 POST http://localhost:3005/user/getAllMsg HTTP/1.1
 content-type: application/json
 
 {
-    "user_account":0 ,
-    "send_to": 1
+    "user_account":0 
+}
+
+###
+POST http://localhost:3005/user/getMsgFromMe HTTP/1.1
+content-type: application/json
+
+{
+    "user_account":0 
 }
 
 ### sent msg 
@@ -164,9 +173,9 @@ content-type: application/json
 
 
 {
-   "item_name":"sss",
+   "item_name":"mackbook16 pro",
    "type_id": 0,
-  "user_account" :0,
-  "item_info":"infoddsfsdfsdfd",
-  "item_price":200
+  "user_account" :1,
+  "item_info":"only for 1000 dollar free shipping",
+  "item_price":5000
 }
