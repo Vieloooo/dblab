@@ -39,7 +39,7 @@ const Items = ({ balance, user_account, itms }) => {
     }
 
     return (
-        <Row xs={1} md={4} className="g-4">
+        <Row xs={1} md={3} className="g-4">
             {itms.map((item, i) => {
                 console.log(item, i)
                 return (

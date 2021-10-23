@@ -23,9 +23,10 @@ userRouter.post('/updateInfo', (req, res) => {
 userRouter.post('/getMyProfit', (req, res) => {
     user.getMyprofit(req.body.user_account, (err, data) => {
         if (err) {
+            console.log(err)
             res.json({
                 state: 0,
-                profit: {}
+                profit: 0
             })
         } else {
             res.json({
@@ -220,9 +221,9 @@ userRouter.post("/mySell", (req, res) => {
 })
 userRouter.post("/postItem", (req, res) => {
     const item = req.body
-    db.query("select count(*) as num from Items", (err1, data1) => {
+    db.query("select max(item_id) as num from Items", (err1, data1) => {
         if (err1) throw err1
-        db.query(`insert into Items values ( ${data1[0].num}, "${item.item_name}", ${item.type_id}, ${item.user_account} ,"${item.item_info} " , ${item.item_price})`,
+        db.query(`insert into Items values ( ${data1[0].num + 1}, "${item.item_name}", ${item.type_id}, ${item.user_account} ,"${item.item_info} " , ${item.item_price})`,
             (err, data) => {
                 if (err) {
                     console.log(err)
@@ -237,5 +238,18 @@ userRouter.post("/postItem", (req, res) => {
 
             })
     })
+})
+userRouter.post("/delItem", (req, res) => {
+    const id = req.body.item_id
+    db.query(`delete from Items where item_id = ${id} `,
+        (err, data) => {
+            console.log(err, data)
+            if (err) {
+                res.json({ "state": 0 })
+            } else {
+                res.json({ "state": 1 })
+            }
+        })
+
 })
 module.exports = userRouter

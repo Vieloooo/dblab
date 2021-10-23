@@ -6,6 +6,19 @@ import React, { useState } from 'react'
 
 const Selling = ({ user_account, itms }) => {
     let item_name = "", item_info = "", item_price = 0;
+    const handleDel = (item_id) => {
+        console.log(item_id)
+        axios.post('http://localhost:3005/user/delItem', {
+            "item_id": item_id
+        })
+            .then(response => {
+                if (response.data.state === 0) {
+                    alert("There is someone having bought this item, so this item cannot be deleted")
+                } else {
+                    alert("Success!")
+                }
+            })
+    }
     const handlePost = (item_name, item_info, item_price, user_account) => {
         console.log(item_name, item_info, item_price, user_account)
         axios.post('http://localhost:3005/user/postItem', {
@@ -67,7 +80,7 @@ const Selling = ({ user_account, itms }) => {
                                     </Card.Text>
                                 </Card.Body>
                                 <ButtonGroup aria-label="Basic example">
-                                    <Button variant="danger"
+                                    <Button variant="danger" onClick={() => { handleDel(item.item_id) }}
                                     >
                                         Delete</Button>
                                     <Button variant="primary"> Update

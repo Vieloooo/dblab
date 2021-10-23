@@ -173,9 +173,64 @@ content-type: application/json
 
 
 {
-   "item_name":"mackbook16 pro",
+   "item_name":"macbook13.3 pro",
+   "type_id": 0,
+  "user_account" :2,
+  "item_info":"powerful computer for coder and video editor, exchange for m1 max macbook",
+  "item_price":6000
+}
+###
+POST  http://localhost:3005/user/postItem HTTP/1.1
+content-type: application/json
+# item_id, item_name, type_id, user_account, item_info, item_price
+
+
+{
+   "item_name":"aoc 2k144hz monitor ",
    "type_id": 0,
   "user_account" :1,
-  "item_info":"only for 1000 dollar free shipping",
-  "item_price":5000
+  "item_info":"maganificient display with high refresh rate, great for gamer and video streaming",
+  "item_price":2000
 }
+
+###
+POST  http://localhost:3005/user/postItem HTTP/1.1
+content-type: application/json
+# item_id, item_name, type_id, user_account, item_info, item_price
+
+
+{
+   "item_name":"10.15 <dune> movie ticket",
+   "type_id": 0,
+  "user_account" :1,
+  "item_info":"great movie, but I'm not avaliable at that time",
+  "item_price":50
+}
+###
+POST  http://localhost:3005/user/postItem HTTP/1.1
+content-type: application/json
+# item_id, item_name, type_id, user_account, item_info, item_price
+
+
+{
+   "item_name":"hand washer",
+   "type_id": 0,
+  "user_account" :2,
+  "item_info":"spare hand washer with great perfume",
+  "item_price":10
+}
+
+###
+POST  http://localhost:3005/user/postItem HTTP/1.1
+content-type: application/json
+# item_id, item_name, type_id, user_account, item_info, item_price
+
+
+{
+   "item_name":"Lipstick",
+   "type_id": 0,
+  "user_account" :2,
+  "item_info":"cheap and nice lipstick from PingDaoDao",
+  "item_price":80
+}
+

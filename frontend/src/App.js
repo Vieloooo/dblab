@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import { Tab, Tabs, Button } from 'react-bootstrap'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Me from './components/Me'
@@ -12,6 +12,7 @@ import Chart from './components/Chart'
 import Selling from './components/Selling'
 import Sold from './components/Sold'
 import Msg from './components/Msg'
+
 //save all data here 
 //user info 
 
@@ -28,6 +29,7 @@ const App = () => {
     const [sold, setSold] = useState([])
     const [msg, setMsg] = useState([])
     const [chart, setChart] = useState([])
+    const [profit, setProfit] = useState(0)
     // console.log(Date.now())
     /*
     useEffect(() => {
@@ -87,6 +89,7 @@ const App = () => {
                 //console.log('promise fulfilled', response.data)
                 setChart(response.data.items)
             })
+
     }
 
     return (
@@ -99,15 +102,16 @@ const App = () => {
             </div>
 
             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+                <Tab eventKey="Signup" title="Signup">
+                    <Signup setUser={setUser} />
+                </Tab>
 
                 <Tab eventKey="Login" title="Login">
                     <Login setUser={setUser} />
                 </Tab>
-                <Tab eventKey="Signup" title="Signup">
-                    <Signup setUser={setUser} />
-                </Tab>
+
                 <Tab eventKey="Me" title="Me">
-                    <Me info={me} />
+                    <Me info={me} profit={profit} />
                 </Tab>
                 <Tab eventKey="Chart" title="Chart">
                     <Chart balance={me.balance} charts={chart} user_account={me.user_account} />
@@ -115,10 +119,10 @@ const App = () => {
                 <Tab eventKey="Items" title="Items">
                     <Items balance={me.balance} itms={items} user_account={me.user_account} />
                 </Tab>
-                <Tab eventKey="Txs" title="Txs"  >
+                <Tab eventKey="Txs" title="Bought"  >
                     <Txs txs={txs} />
                 </Tab>
-                <Tab eventKey="Selling" title="Selling" >
+                <Tab eventKey="Selling" title=" My Selling" >
                     <Selling user_account={me.user_account} itms={sells} />
                 </Tab>
                 <Tab eventKey="sold" title="Sold" >

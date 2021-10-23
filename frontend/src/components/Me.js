@@ -2,7 +2,7 @@
 import { Card, Button, ListGroup } from 'react-bootstrap'
 import React from 'react'
 
-const Me = ({ info }) => {
+const Me = ({ info, profit }) => {
 
     return (
         <Card style={{ width: '60rem' }}>
@@ -16,6 +16,7 @@ const Me = ({ info }) => {
                     <ListGroup.Item>Zipcode: {info.addr_zip}</ListGroup.Item>
                     <ListGroup.Item>Detail address: {info.user_detail_addr}</ListGroup.Item>
                     <ListGroup.Item>Balance: {info.balance}</ListGroup.Item>
+                    <ListGroup.Item>Profit: {profit}</ListGroup.Item>
 
                 </ListGroup>
                 <Button variant="primary">Update Info</Button>
